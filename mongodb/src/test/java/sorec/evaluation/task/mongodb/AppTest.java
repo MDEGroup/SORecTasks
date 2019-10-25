@@ -4,9 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Collection;
+
+import org.bson.BsonDocument;
 import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.mongodb.client.MongoCollection;
 
 
 /**
@@ -34,6 +39,30 @@ public class AppTest
 		Document art = app.updateDocument("artifact", "neo4j-contrib/sparql-plugin");
 		assertNotNull(art);
 	}
+	@Test
+	public void filterQueryTest() {	
+		Collection<Document> art = app.filterQuery("artifact", "field");
+		assertNotNull(art);
+	}
+	@Test
+	public void bsonFilterTest() {	
+		BsonDocument  art = app.BsonFilter("artifact");
+		assertNotNull(art);
+	}
+	@Test
+	public void insertSingleDocumentTest() {	
+		MongoCollection<Document>  art = app.insertSingleDocument("artifact");
+		assertNotNull(art);
+	}
+	
+	@Test
+	public void insertMultipleDocumentTest() {	
+	    MongoCollection<Document> art=app.insertMultipleDocument("artifact");
+	    assertNotNull(art);
+		
+	}	
+	
+	
 	@Test
 	public void deleteDocumentTest() {	
 		int init = app.findAll("artifact").size();
