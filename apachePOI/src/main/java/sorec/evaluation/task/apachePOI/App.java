@@ -11,7 +11,10 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Comment;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -79,7 +82,8 @@ public class App {
 
 	public Workbook addCellColors(String filename) throws FileNotFoundException, IOException {
 		try (FileInputStream is = new FileInputStream(new File(filename)); Workbook wb = new HSSFWorkbook(is)) { // or
-																													// new
+			File file = new File(filename);
+																					// new
 			// HSSFWorkbook();
 			Sheet sheet = wb.createSheet("NewSheet");
 
@@ -93,7 +97,7 @@ public class App {
 			style.setFillBackgroundColor(IndexedColors.AQUA.getIndex());
 
 			cell.setCellStyle(style);
-			FileOutputStream out = new FileOutputStream("C://Users//moror//Desktop//excFGelhgdSDFGHJgnhggNt.xls");
+			FileOutputStream out = new FileOutputStream(file);
 			wb.write(out);
 			wb.close();
 			out.close();
@@ -117,12 +121,31 @@ public class App {
 	}
 
 	public Workbook commentsCell(String filename) throws IOException {
-		try (Workbook wb = new HSSFWorkbook()) {
-
+		try (FileInputStream is = new FileInputStream (new File(filename));Workbook wb = new HSSFWorkbook(is)) {
+			File file = new File(filename);
 			CreationHelper factory = wb.getCreationHelper();
+			Sheet sheet = wb.createSheet("SheetWithComment");
+			Row row = sheet.createRow(0);
+			Cell cell = row.createCell(0);
+
+	        ClientAnchor anchor = factory.createClientAnchor();
+	        //i found it useful to show the comment box at the bottom right corner
+	        anchor.setCol1(cell.getColumnIndex() + 1); //Where the comment starts
+	        anchor.setCol2(cell.getColumnIndex() + 3); //Where ends
+	        anchor.setRow1(cell.getRowIndex() + 1); //About rows
+	        anchor.setRow2(cell.getRowIndex() + 5); 
+
+	        Drawing drawing = sheet.createDrawingPatriarch();
+	        Comment comment = drawing.createCellComment(anchor);
+	        comment.setString(factory.createRichTextString("New comment"));
+
+	        cell.setCellComment(comment);
+	        FileOutputStream out = new FileOutputStream(file);
+			wb.write(out);
+			out.close();
+			return wb;
 
 		}
-		return null;
 	}
 
 	public HSSFWorkbook addCellDate(String filename) throws FileNotFoundException, IOException {
