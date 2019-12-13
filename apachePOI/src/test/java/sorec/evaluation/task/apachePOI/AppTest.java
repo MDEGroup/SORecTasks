@@ -35,12 +35,12 @@ public class AppTest {
 	}
 	@Test
 	public void iterateCellTest() throws FileNotFoundException, IOException {
-		assertNotEquals(app.iterateCell("C://Users//moror//Desktop//excel.xls").getNumberOfSheets(),0);
+		assertNotEquals(app.iterateCell("C://Users//moror//Desktop//excelHola.xls").getNumberOfSheets(),0);
 	}
 
 	@Test
 	public void addCellColorsTest() throws IOException {
-		assertNotNull(app.addCellColors("C://Users//moror//Desktop//excel.xls"));
+		assertNotNull(app.addCellColors("C://Users//moror//Desktop//excelHola.xls"));
 	}
 	@Test
 	public void createNewSheetTest() throws IOException {
@@ -58,7 +58,7 @@ public class AppTest {
 	
 	@Test
 	public void addCellDateTest() throws IOException {
-		assertNotNull(app.addCellDate("C://Users//moror//Desktop//excel.xls"));
+		assertNotNull(app.addCellDate("C://Users//moror//Desktop//excelx.xls"));
 	}
 	
 	
