@@ -103,7 +103,7 @@ public class App {
 		return documents;
 	}
 	
-	//15
+	//15min
 	public BsonDocument BsonFilter(String collectionName) {
 		Bson filter = and(eq("field1", "value"), gt("field2", "value2"));
 		BsonDocument bsonDocument = filter.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry());
