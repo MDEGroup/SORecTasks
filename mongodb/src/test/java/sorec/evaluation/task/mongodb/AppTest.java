@@ -25,30 +25,35 @@ public class AppTest
 	public void init() {
 		app = new App();
 	}
-	@Test
+	/*@Test
 	public void findAllTest() {		
 		assertNotEquals(app.findAll("artifact").size(), 0);
-	}
+	}*/
 	@Test
 	public void findOneByFullNameTest() {	
 		Document art = app.findOneByFullName("artifact", "neo4j-contrib/sparql-plugin");
 		assertNotNull(art);
 	}
+	
 	@Test
 	public void updateDocumentTest() {	
 		Document art = app.updateDocument("artifact", "neo4j-contrib/sparql-plugin");
 		assertNotNull(art);
 	}
+
 	@Test
 	public void filterQueryTest() {	
 		Collection<Document> art = app.filterQuery("artifact", "field");
 		assertNotNull(art);
 	}
+	
+	
 	@Test
 	public void bsonFilterTest() {	
 		BsonDocument  art = app.BsonFilter("artifact");
 		assertNotNull(art);
 	}
+	
 	@Test
 	public void insertSingleDocumentTest() {	
 		MongoCollection<Document>  art = app.insertSingleDocument("artifact");
@@ -61,7 +66,6 @@ public class AppTest
 	    assertNotNull(art);
 		
 	}	
-	
 	
 	@Test
 	public void deleteDocumentTest() {	
